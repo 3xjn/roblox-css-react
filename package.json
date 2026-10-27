@@ -10,12 +10,9 @@
     "LICENSE.cva",
     "LICENSE.base-ui",
     "LICENSE.v8",
-    "LICENSE.roblox-ts"
+    "LICENSE.roblox-ts",
+    "default.project.json"
   ],
-  "peerDependencies": {
-    "@3xjn/roblox-css": "0.0.0",
-    "@3xjn/roblox-primitives": "0.0.0"
-  },
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -25,8 +22,16 @@
   "bugs": {
     "url": "https://github.com/3xjn/roblox-css-react/issues"
   },
-  "devDependencies": {
-    "@3xjn/roblox-css": "git+https://github.com/3xjn/roblox-css.git#c49d5525cf8091c25ace5b98a057abc1d157ce0b",
-    "@3xjn/roblox-primitives": "git+https://github.com/3xjn/roblox-primitives.git#cb79b22fc20a0c94e97686e79bce108a6166a813"
+  "types": "./src/init.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/init.d.ts",
+      "default": "./src/init.luau"
+    },
+    "./*": "./*"
+  },
+  "dependencies": {
+    "@3xjn/roblox-css": "github:3xjn/roblox-css#57f7ee2",
+    "@3xjn/roblox-primitives": "github:3xjn/roblox-primitives#293846860ecb466993e68e29294966e983861f4d"
   }
 }

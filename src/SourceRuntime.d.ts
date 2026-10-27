@@ -13,6 +13,7 @@ import type {Normalize} from './RenderNodes';
 import type {Constructor as Promises} from './SourcePromise';
 import type {SourceConstructor as AbortConstructor} from './Abort';
 import type {Constructor as ObserverConstructor} from './AttributeObservers';
+import type {ResizeObserverConstructor} from './BrowserHost';
 import type {Constructor as ErrorConstructor,DOMExceptionConstructor} from './SourceErrors';
 import type * as SourceURL from './SourceURL';
 import type * as SourceDocument from './SourceDocument';
@@ -29,7 +30,7 @@ import type * as DomElements from './DomElements';
 import type * as SourceOperations from './SourceOperations';
 import type * as SourceRegExp from './SourceRegExp';
 import type BrowserReact = require('./BrowserReact');
-export type SourceReact = Omit<typeof React,Extract<'forwardRef'|'memo'|'createElement'|'cloneElement'|'isValidElement'|'createRef'|'createContext'|'useContext'|'version',keyof typeof React>> & {
+export type SourceReact = Omit<typeof React,Extract<'forwardRef'|'memo'|'createElement'|'cloneElement'|'isValidElement'|'createRef'|'createContext'|'useContext'|'useRef'|'version',keyof typeof React>> & {
   /** Finite source data protocol; reconciliation remains owned by ReactLua. */
   readonly version:'19.3.1';
   readonly forwardRef:typeof BrowserReact.forwardRef;
@@ -40,6 +41,8 @@ export type SourceReact = Omit<typeof React,Extract<'forwardRef'|'memo'|'createE
   readonly createRef:typeof BrowserReact.createRef;
   readonly createContext:typeof BrowserReact.createContext;
   readonly useContext:typeof BrowserReact.useContext;
+  readonly useRef: BrowserReact.UseRef & typeof BrowserReact.useRef;
+  readonly useId:()=>string;
   readonly useInsertionEffect?: typeof React.useLayoutEffect;
   readonly useSyncExternalStore?:<T>(subscribe:(callback:()=>void)=>()=>void,getSnapshot:()=>T,getServerSnapshot?:()=>T)=>T;
 };
@@ -81,7 +84,7 @@ export interface ValueGlobals extends Values.Globals {
   readonly document:DocumentValue|undefined;
   readonly navigator:unknown;
   readonly CSS:unknown;
-  readonly ResizeObserver:unknown;
+  readonly ResizeObserver:ResizeObserverConstructor;
   /** Absent by default. Hosts may supply an actual capability through Options.globals. */
   readonly IntersectionObserver?:unknown;
   /** Optional host capability. Absent by default; source can feature-detect it. */

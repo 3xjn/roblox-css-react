@@ -20,6 +20,8 @@ export interface DomRect {
 }
 
 export interface DomElementProxy {
+  snapshotAttributes(): { readonly [name: string]: string };
+  subscribeAttributes(callback: () => void): () => void;
   value?: string;
   checked?: boolean;
   readonly _instance?: GuiObject;

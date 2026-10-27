@@ -155,8 +155,14 @@ local function inlineWrite(owner: any,name: string,value: string,priority: strin
 		current.detachedInline[name] = if value == "" then nil else {value, priority}
 		return
 	end
-	assert(current.context.setInlineProperty,"Native inline declaration mutation is unavailable")(name,value,priority)
-	current.styleDirty=true
+	local context = current.context
+	local read = assert(context.getInlineProperty,"Native inline declaration reads are unavailable")
+	local beforeValue, beforePriority = read(name)
+	assert(context.setInlineProperty,"Native inline declaration mutation is unavailable")(name,value,priority)
+	local afterValue, afterPriority = read(name)
+	if beforeValue ~= afterValue or beforePriority ~= afterPriority then
+		current.styleDirty=true
+	end
 end
 local function cssValue(value: any): string return if Nulls.isNull(value) then "" else Operations.string(value) end
 local function inlineMethod(name: string,length: number,callback: any)
