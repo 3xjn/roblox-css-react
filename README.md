@@ -514,7 +514,7 @@ Related packages:
 - [@3xjn/roblox-css](https://github.com/3xjn/roblox-css)
 - [@3xjn/roblox-primitives](https://github.com/3xjn/roblox-primitives)
 
-Authenticate Git with GitHub before running `npm install`; development dependencies use the related private GitHub repositories.
+Run `npm install` to install development dependencies from the related GitHub repositories.
 
 Build the Luau module with `rojo build default.project.json --output CssReact.rbxm`. Runtime imports expect the related modules as siblings in the Roblox package tree.
 
